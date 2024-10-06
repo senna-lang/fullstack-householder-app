@@ -1,7 +1,16 @@
 import { db } from "@/db/drizzle";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { userFinances } from "@/db/schema";
 import { Hono } from "hono";
+import { z } from "zod";
+import { zValidator } from "@hono/zod-validator";
+
+const inputSchema = z.object({
+  userId: z.number(),
+  categoryId: z.number(),
+  amount: z.string(),
+  date: z.string(),
+});
 
 const app = new Hono()
   .get("/userFinances", async c => {
@@ -44,6 +53,120 @@ const app = new Hono()
       if (err instanceof Error) {
         return c.json(
           { error: `データの取得に失敗しました。: ${err.message}` },
+          500
+        );
+      }
+      return c.json(
+        {
+          error:
+            "予期せぬエラーが発生しました。しばらくしてからもう一度お試しください。",
+        },
+        500
+      );
+    }
+  })
+  .post(
+    "/userFinances",
+    zValidator("json", inputSchema, (result, c) => {
+      if (!result.success) {
+        return c.json({ message: "無効な入力があります。" }, 400);
+      }
+    }),
+    async c => {
+      const { userId, categoryId, amount, date } = c.req.valid("json");
+      try {
+        const result = await db
+          .insert(userFinances)
+          .values({
+            userId,
+            categoryId,
+            amount: sql`CAST(${amount} AS DECIMAL(10, 2))`,
+            date: sql`CAST(${date} AS DATE)`,
+          })
+          .returning({ insertedId: userFinances.id });
+
+        return c.json({ success: true, id: result[0].insertedId });
+      } catch (err) {
+        console.error("Error creating user finance:", err);
+        if (err instanceof Error) {
+          return c.json(
+            { error: `データの作成に失敗しました。: ${err.message}` },
+            500
+          );
+        }
+        return c.json(
+          {
+            error:
+              "予期せぬエラーが発生しました。しばらくしてからもう一度お試しください。",
+          },
+          500
+        );
+      }
+    }
+  )
+  .put(
+    "/userFinances/:id",
+    zValidator("json", inputSchema, (result, c) => {
+      if (!result.success) {
+        return c.json({ message: "無効な入力があります。" }, 400);
+      }
+    }),
+    async c => {
+      const id = c.req.param("id");
+      const { userId, categoryId, amount, date } = c.req.valid("json");
+      try {
+        const result = await db
+          .update(userFinances)
+          .set({
+            userId,
+            categoryId,
+            amount: sql`CAST(${amount} AS DECIMAL(10, 2))`,
+            date: sql`CAST(${date} AS DATE)`,
+          })
+          .where(eq(userFinances.id, Number(id)))
+          .returning();
+
+        if (result.length === 0) {
+          return c.json({ error: "データが見つかりませんでした。" }, 404);
+        }
+
+        return c.json({ success: true });
+      } catch (err) {
+        console.error("Error updating user finance:", err);
+        if (err instanceof Error) {
+          return c.json(
+            { error: `データの更新に失敗しました。: ${err.message}` },
+            500
+          );
+        }
+        return c.json(
+          {
+            error:
+              "予期せぬエラーが発生しました。しばらくしてからもう一度お試しください。",
+          },
+          500
+        );
+      }
+    }
+  )
+  .delete("/userFinances/:id", async c => {
+    const id = c.req.param("id");
+    try {
+      const result = await db
+        .delete(userFinances)
+        .where(eq(userFinances.id, Number(id)))
+        .returning();
+
+      if (result.length === 0) {
+        return c.json({ error: "データが見つかりませんでした。" }, 404);
+      }
+
+      return c.json({ success: true });
+    } catch (err) {
+      console.error("Error deleting user finance:", err);
+      if (err instanceof Error) {
+        return c.json(
+          { error: `データの削除に失敗しました。: ${err.message}` },
           500
         );
       }
