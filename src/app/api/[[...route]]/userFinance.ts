@@ -2,7 +2,6 @@ import { db } from "@/db/drizzle";
 import { eq } from "drizzle-orm";
 import { userFinances } from "@/db/schema";
 import { Hono } from "hono";
-import { use } from "react";
 
 const app = new Hono()
   .get("/userFinances", async c => {
