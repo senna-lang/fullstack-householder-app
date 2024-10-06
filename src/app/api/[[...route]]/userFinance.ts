@@ -1,9 +1,11 @@
-import { db } from "@/db/drizzle";
+import { zValidator } from "@hono/zod-validator";
 import { eq, sql } from "drizzle-orm";
-import { userFinances } from "@/db/schema";
 import { Hono } from "hono";
 import { z } from "zod";
-import { zValidator } from "@hono/zod-validator";
+
+import { db } from "@/db/drizzle";
+import { userFinances } from "@/db/schema";
+
 
 const inputSchema = z.object({
   userId: z.number(),

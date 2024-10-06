@@ -45,7 +45,7 @@ export function Chart() {
           tickLine={false}
           tickMargin={10}
           axisLine={false}
-          tickFormatter={(value) => value.slice(0, 3)}
+          tickFormatter={(value:string) => value.slice(0, 3)}
         />
         <ChartTooltip content={<ChartTooltipContent />} />
         <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />

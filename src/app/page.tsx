@@ -1,8 +1,9 @@
+import { ArrowUpIcon } from "lucide-react";
 import React from "react";
+
 import { Chart } from "@/components/chart";
 import { DataTable } from "@/components/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowUpIcon } from "lucide-react";
 
 export default function Home() {
   return (

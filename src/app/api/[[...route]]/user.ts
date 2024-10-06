@@ -1,7 +1,8 @@
-import { db } from "@/db/drizzle";
-import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { Hono } from "hono";
+
+import { db } from "@/db/drizzle";
+import { users } from "@/db/schema";
 
 const app = new Hono()
   .get("/users:id", async c => {
