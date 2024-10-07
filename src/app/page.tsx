@@ -1,42 +1,25 @@
-import { ArrowUpIcon } from "lucide-react";
-import React from "react";
-
 import { Chart } from "@/components/chart";
 import { DataTable } from "@/components/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { fetchFinanceData } from "@/features/dashboard/api";
+import { CategoryCard } from "@/features/dashboard/components/CategoryCard";
+import { calculateCategoryTotals } from "@/features/dashboard/utils";
 
-export default function Home() {
+
+export default async function Home() {
+  const { financeData, expenseCategoryData } = await fetchFinanceData();
+  const categoryTotals = calculateCategoryTotals(financeData);
+
   return (
     <div className="flex flex-col w-full h-[calc(100vh-70px)] p-12 gap-4 bg-[#e0e7ff]">
       <h2 className="text-3xl font-extrabold text-[#2563eb]">ダッシュボード</h2>
       <div className="flex gap-2 w-full">
-        {["合計", "固定費", "娯楽費", "雑費"].map((title, index) => (
-          <Card
+        {expenseCategoryData.map((category, index) => (
+          <CategoryCard
             key={index}
-            className="w-full flex-1 transition-all duration-300 hover:shadow-lg bg-[#60a5fa] text-white"
-          >
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">{title}</CardTitle>
-              <ArrowUpIcon className="h-4 w-4 text-[#2563eb]" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">260,000 JPY</div>
-              <p className="text-xs text-[#e0e7ff]">前月比 +20%</p>
-            </CardContent>
-            <CardContent className="pt-4">
-              <div className="h-4 w-full rounded-full bg-[#93c5fd]">
-                <div
-                  className="h-4 rounded-full bg-[#2563eb]"
-                  style={{ width: "75%" }}
-                  role="progressbar"
-                  aria-valuenow={75}
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                ></div>
-              </div>
-              <p className="mt-2 text-xs text-[#e0e7ff]">目標達成率: 75%</p>
-            </CardContent>
-          </Card>
+            category={category}
+            totalAmount={categoryTotals[category.id] || 0}
+          />
         ))}
       </div>
       <div className="flex gap-2 w-full flex-1">
@@ -64,3 +47,5 @@ export default function Home() {
     </div>
   );
 }
+
+
