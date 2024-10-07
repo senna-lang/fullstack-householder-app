@@ -15,7 +15,7 @@ const inputSchema = z.object({
 });
 
 const app = new Hono()
-  .get("/userFinances", async c => {
+  .get("/", async c => {
     try {
       const userFinance = await db.select().from(userFinances);
       if (!userFinance) {
@@ -39,16 +39,16 @@ const app = new Hono()
       );
     }
   })
-  .get("/userFinances/:id", async c => {
+  .get("/:id", async c => {
     const id = c.req.param("id");
     try {
       const userFinance = await db
         .select()
         .from(userFinances)
         .where(eq(userFinances.id, Number(id)));
-      if (!userFinance) {
-        return c.json({ error: "データが見つかりませんでした。" }, 404);
-      }
+      // if (!userFinance) {
+      //   return c.json({ error: "データが見つかりませんでした。" }, 404);
+      // }
       return c.json(userFinance);
     } catch (err) {
       console.error("Error fetching user finance:", err);
@@ -68,7 +68,7 @@ const app = new Hono()
     }
   })
   .post(
-    "/userFinances",
+    "/",
     zValidator("json", inputSchema, (result, c) => {
       if (!result.success) {
         return c.json({ message: "無効な入力があります。" }, 400);
@@ -107,7 +107,7 @@ const app = new Hono()
     }
   )
   .put(
-    "/userFinances/:id",
+    "/:id",
     zValidator("json", inputSchema, (result, c) => {
       if (!result.success) {
         return c.json({ message: "無効な入力があります。" }, 400);
@@ -151,7 +151,7 @@ const app = new Hono()
       }
     }
   )
-  .delete("/userFinances/:id", async c => {
+  .delete("/:id", async c => {
     const id = c.req.param("id");
     try {
       const result = await db

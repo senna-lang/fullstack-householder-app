@@ -6,7 +6,7 @@ import { expenseCategories } from "@/db/schema";
 
 
 const app = new Hono()
-  .get("/expenseCategories", async c => {
+  .get("/", async c => {
     try {
       const categories = await db.select().from(expenseCategories);
       if (!categories) {
@@ -30,7 +30,7 @@ const app = new Hono()
       );
     }
   })
-  .get("/expenseCategories/:id", async c => {
+  .get("/:id", async c => {
     const id = c.req.param("id");
     try {
       const category = await db
@@ -58,7 +58,7 @@ const app = new Hono()
       );
     }
   })
-  .post("/expenseCategories", async c => {
+  .post("/", async c => {
     const { name } = c.req.query();
     try {
       const category = await db
@@ -86,7 +86,7 @@ const app = new Hono()
       );
     }
   })
-  .put("/expenseCategories/:id", async c => {
+  .put("/:id", async c => {
     const id = c.req.param("id");
     const { name } = c.req.query();
     try {
@@ -116,7 +116,7 @@ const app = new Hono()
       );
     }
   })
-  .delete("/expenseCategories/:id", async c => {
+  .delete("/:id", async c => {
     const id = c.req.param("id");
     try {
       const category = await db

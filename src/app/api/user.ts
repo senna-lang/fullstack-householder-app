@@ -5,7 +5,7 @@ import { db } from "@/db/drizzle";
 import { users } from "@/db/schema";
 
 const app = new Hono()
-  .get("/users:id", async c => {
+  .get("/:id", async c => {
     const id = c.req.param("id");
     try {
       const user = await db
@@ -27,7 +27,7 @@ const app = new Hono()
       );
     }
   })
-  .post("/users", async c => {
+  .post("/", async c => {
     const { name, email, password } = c.req.query();
     try {
       const user = await db
@@ -62,7 +62,7 @@ const app = new Hono()
       );
     }
   })
-  .put("/users:id", async c => {
+  .put("/:id", async c => {
     const id = c.req.param("id");
     const { name, email, password } = c.req.query();
     try {
@@ -98,7 +98,7 @@ const app = new Hono()
       );
     }
   })
-  .delete("/users:id", async c => {
+  .delete("/:id", async c => {
     const id = c.req.param("id");
     try {
       const user = await db
