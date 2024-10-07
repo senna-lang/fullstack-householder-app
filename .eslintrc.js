@@ -23,7 +23,8 @@ module.exports = {
     "node_modules/",
     "dist/",
     "build/",
-    "src/components/ui/**/*"  // ui ディレクトリを ESLint の対象から除外
+    "src/components/ui/**/*" , // ui ディレクトリを ESLint の対象から除外
+    "src/lib/hono.ts"  // hono.ts ディレクトリを ESLint の対象から除外
   ],
    extends: [
      "next",
@@ -63,11 +64,11 @@ module.exports = {
        {
          zones: [
            //より厳しく設定する場合は、feature内のファイルはその中でしかインポートできないようにする
-           // {
-           //   target: './src/features/auth',
-           //   from: './src/features',
-           //   except: ['./auth'],
-           // },
+           {
+             target: './src/features/dashboard',
+             from: './src/features',
+             except: ['./dashboard'],
+           },
  
            // appからはfeaturesにアクセスできるが、featuresからはappにアクセスできない
            {
