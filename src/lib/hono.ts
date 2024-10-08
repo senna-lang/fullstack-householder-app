@@ -1,13 +1,15 @@
-import { hc } from "hono/client";
+import { hc } from "hono/client"
 
-import { AppType } from "@/app/api/[[...route]]/route";
+import type { AppType } from "@/app/api/[[...route]]/route"
 
-export const cacheableClient = hc<AppType>(process.env.NEXT_PUBLIC_API_URL!);
+export const cacheableClient = hc<AppType>(
+	process.env.NEXT_PUBLIC_API_URL as string,
+)
 
-export const client = hc<AppType>(process.env.NEXT_PUBLIC_API_URL!, {
-   fetch: (input: RequestInfo | URL, requestInit?: RequestInit) =>
-     fetch(input, {
-       cache: "no-cache",
-       ...requestInit,
-     }),
- });
+export const client = hc<AppType>(process.env.NEXT_PUBLIC_API_URL as string, {
+	fetch: (input: RequestInfo | URL, requestInit?: RequestInit) =>
+		fetch(input, {
+			cache: "no-cache",
+			...requestInit,
+		}),
+})
