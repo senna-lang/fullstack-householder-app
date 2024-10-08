@@ -10,7 +10,7 @@ export default async function Home() {
 	const categoryTotals = calculateCategoryTotals(financeData)
 
 	return (
-		<div className="flex flex-col w-full h-[calc(100vh-70px)] p-12 gap-4 bg-[#e0e7ff]">
+		<div className="flex flex-col  h-[calc(100vh-70px)] w-full p-12 gap-4 bg-[#e0e7ff]">
 			<h2 className="text-3xl font-extrabold text-[#2563eb]">ダッシュボード</h2>
 			<div className="flex gap-2 w-full">
 				{expenseCategoryData.map((category) => (
