@@ -28,12 +28,13 @@ const app = new Hono()
 		}
 	})
 	.post("/", async (c) => {
-		const { name, email, password } = c.req.query()
+		const { username, email, password } = await c.req.json()
+		console.log(username, email, password)
 		try {
 			const user = await db
 				.insert(users)
 				.values({
-					username: name,
+					username: username,
 					email: email,
 					passwordHash: password,
 					createdAt: new Date(),

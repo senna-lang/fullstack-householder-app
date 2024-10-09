@@ -1,5 +1,6 @@
 import { Bell, CreditCard, Home, PieChart, User } from "lucide-react"
 import Link from "next/link"
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 
 import { Button } from "./ui/button"
 
@@ -36,10 +37,18 @@ export default function Header() {
 					<Bell className="w-5 h-5" />
 					<span className="sr-only">通知</span>
 				</Button>
-				<Button variant="ghost" size="icon">
-					<User className="w-5 h-5" />
-					<span className="sr-only">プロフィール</span>
-				</Button>
+				<SignedIn>
+					<Button variant="ghost" size="icon">
+						<UserButton />
+						<span className="sr-only">プロフィール</span>
+					</Button>
+				</SignedIn>
+				<SignedOut>
+					<Button variant="ghost" size="icon">
+						<SignInButton />
+						<span className="sr-only">プロフィール</span>
+					</Button>
+				</SignedOut>
 			</div>
 		</header>
 	)
