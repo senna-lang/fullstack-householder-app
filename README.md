@@ -1,37 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# householder-app
 
-## Getting Started
+householder-app is a household finance management application built with modern web technologies.
 
-First, run the development server:
+## Technologies Used
+
+![Bun](https://img.shields.io/badge/🍞%20Bun-F9F1E1?style=for-the-badge)
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Drizzle ORM](https://img.shields.io/badge/🌧%20Drizzle_ORM-C5F74F?style=for-the-badge)
+![Hono](https://img.shields.io/badge/🔥%20Hono-E36002?style=for-the-badge)
+![Clerk](https://img.shields.io/badge/🔐%20Clerk-6C47FF?style=for-the-badge)
+![Biome](https://img.shields.io/badge/🌿%20Biome-60A5FA?style=for-the-badge)
+
+## Key Features
+
+- Income and expense tracking
+- Budget setting and monitoring
+- Data visualization (graphs and charts)
+- User authentication
+
+## Application Screenshot
+
+(Screenshot of the application will be added here)
+
+## Setup
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clone the repository
+git clone https://github.com/yourusername/householder-app.git
+cd householder-app
+
+# Ensure Bun is installed
+# If not, install it using:
+# curl -fsSL https://bun.sh/install | bash
+
+# Install dependencies
+bun install
+
+# Start the development server
+bun run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `bun run dev`: Start the development server
+- `bun run build`: Build for production
+- `bun run start`: Start in production mode
+- `bun run lint`: Run linting using Biome
+- `bun run format`: Run formatting using Biome
+- `bun run check`: Run checks using Biome
+- `bun run studio`: Launch Drizzle Studio
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Runtime and Tools
 
-## Learn More
+This project uses [Bun](https://bun.sh/) as its JavaScript runtime. Bun provides a fast and efficient execution environment, accelerating the development process.
 
-To learn more about Next.js, take a look at the following resources:
+[Biome](https://biomejs.dev/) is used as the linter and formatter for this project. Biome is a fast, modern linter and formatter that helps maintain code quality and consistency.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# fullstack-householder-app
+This project is released under the [MIT License](LICENSE).
