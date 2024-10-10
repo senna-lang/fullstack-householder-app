@@ -61,6 +61,7 @@ export async function POST(req: Request) {
 		try {
 			const response = await client.api.user.$post({
 				json: {
+					user_id: id,
 					username,
 					email: primaryEmail,
 					password: "password",

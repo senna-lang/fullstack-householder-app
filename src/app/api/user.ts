@@ -8,10 +8,7 @@ const app = new Hono()
 	.get("/:id", async (c) => {
 		const id = c.req.param("id")
 		try {
-			const user = await db
-				.select()
-				.from(users)
-				.where(eq(users.id, Number(id)))
+			const user = await db.select().from(users).where(eq(users.userID, id))
 			if (!user) {
 				return c.json({ error: "User not found" }, 404)
 			}
@@ -28,12 +25,12 @@ const app = new Hono()
 		}
 	})
 	.post("/", async (c) => {
-		const { username, email, password } = await c.req.json()
-		console.log(username, email, password)
+		const { user_id, username, email, password } = await c.req.json()
 		try {
 			const user = await db
 				.insert(users)
 				.values({
+					userID: user_id,
 					username: username,
 					email: email,
 					passwordHash: password,
