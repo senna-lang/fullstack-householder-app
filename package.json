@@ -34,7 +34,8 @@
 		"svix": "^1.37.0",
 		"tailwind": "^4.0.0",
 		"tailwind-merge": "^2.5.2",
-		"tailwindcss-animate": "^1.0.7"
+		"tailwindcss-animate": "^1.0.7",
+		"zustand": "^5.0.0-rc.2"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.3",
