@@ -5,7 +5,7 @@ interface AppProviderProps {
 }
 
 const AppProvider = ({ children }: AppProviderProps) => {
-	return <ClerkProvider>{children}</ClerkProvider>
+	return <ClerkProvider afterSignOutUrl="/sign-in">{children}</ClerkProvider>
 }
 
 export default AppProvider
