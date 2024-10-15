@@ -7,12 +7,16 @@ export function calculateCategoryTotals(
 		amount: string
 	}[],
 ) {
-	return financeData.reduce(
+	const result = financeData.reduce(
 		(acc, item) => {
 			const amount = Number.parseFloat(item.amount)
-			acc[item.categoryId] = (acc[item.categoryId] || 0) + amount
+			acc.categoryTotals[item.categoryId] =
+				(acc.categoryTotals[item.categoryId] || 0) + amount
+			acc.grandTotal += amount
 			return acc
 		},
-		{} as { [key: number]: number },
+		{ categoryTotals: {} as { [key: number]: number }, grandTotal: 0 },
 	)
+
+	return result
 }

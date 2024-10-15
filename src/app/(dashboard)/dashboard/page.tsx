@@ -17,11 +17,15 @@ export default async function Home() {
 		<div className="flex flex-col  h-[calc(100vh-70px)] w-full p-12 gap-4 bg-[#e0e7ff]">
 			<h2 className="text-3xl font-extrabold text-[#2563eb]">Dashboard</h2>
 			<div className="flex gap-2 w-full">
+				<CategoryCard
+					category="total"
+					totalAmount={categoryTotals.grandTotal}
+				/>
 				{expenseCategoryData.map((category) => (
 					<CategoryCard
 						key={category.id}
-						category={category}
-						totalAmount={categoryTotals[category.id] || 0}
+						category={category.name}
+						totalAmount={categoryTotals.categoryTotals[category.id] || 0}
 					/>
 				))}
 			</div>

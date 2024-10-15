@@ -2,10 +2,7 @@ import { ArrowUpIcon } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 type CategoryCardProps = {
-	category: {
-		id: number
-		name: string
-	}
+	category: string
 	totalAmount: number
 }
 
@@ -13,7 +10,7 @@ export function CategoryCard({ category, totalAmount }: CategoryCardProps) {
 	return (
 		<Card className="w-full flex-1 transition-all duration-300 hover:shadow-lg bg-[#60a5fa] text-white">
 			<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-				<CardTitle className="text-sm font-medium">{category.name}</CardTitle>
+				<CardTitle className="text-sm font-medium">{category}</CardTitle>
 				<ArrowUpIcon className="h-4 w-4 text-[#2563eb]" />
 			</CardHeader>
 			<CardContent>
