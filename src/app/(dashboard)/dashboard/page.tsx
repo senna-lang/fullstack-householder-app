@@ -1,5 +1,5 @@
-import { Chart } from "@/components/common/chart"
-import { DataTable } from "@/components/common/table"
+import { Chart } from "@/features/dashboard/components/chart"
+import { DataTable } from "@/features/dashboard/components/table"
 import {
 	Card,
 	CardContent,
@@ -16,7 +16,21 @@ export default async function Home() {
 	const { financeData, expenseCategoryData } = await fetchFinanceData(
 		userId || "",
 	)
-	const categoryTotals = calculateCategoryTotals(financeData)
+	const calculatedData = calculateCategoryTotals(financeData)
+
+	// 現在の年月を取得
+	const currentDate = new Date()
+	const currentYearMonth = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, "0")}`
+
+	// 現在の月のデータのみをフィルタリング
+	const currentMonthData = financeData.filter((item) => {
+		const itemDate = new Date(item.date)
+		const itemYearMonth = `${itemDate.getFullYear()}-${String(itemDate.getMonth() + 1).padStart(2, "0")}`
+		return itemYearMonth === currentYearMonth
+	})
+
+	// 現在の月のデータで再計算
+	const currentMonthCalculatedData = calculateCategoryTotals(currentMonthData)
 
 	return (
 		<div className="flex flex-col  h-[calc(100vh-70px)] w-full p-12 gap-4 bg-[#e0e7ff]">
@@ -24,13 +38,15 @@ export default async function Home() {
 			<div className="flex gap-2 w-full">
 				<CategoryCard
 					category="total"
-					totalAmount={categoryTotals.grandTotal}
+					totalAmount={currentMonthCalculatedData.grandTotal}
 				/>
 				{expenseCategoryData.map((category) => (
 					<CategoryCard
 						key={category.id}
 						category={category.name}
-						totalAmount={categoryTotals.categoryTotals[category.id] || 0}
+						totalAmount={
+							currentMonthCalculatedData.categoryTotals[category.id] || 0
+						}
 					/>
 				))}
 			</div>
@@ -41,7 +57,7 @@ export default async function Home() {
 							<CardTitle>Comparison by Month</CardTitle>
 						</CardHeader>
 						<CardContent className="flex-1">
-							<Chart />
+							<Chart data={calculatedData.monthlyTotals} />
 						</CardContent>
 					</Card>
 				</div>
@@ -51,7 +67,7 @@ export default async function Home() {
 							<CardTitle>Expenses This Month</CardTitle>
 						</CardHeader>
 						<CardContent className="flex-1 overflow-auto">
-							<DataTable />
+							<DataTable data={currentMonthData} />
 						</CardContent>
 					</Card>
 				</div>
