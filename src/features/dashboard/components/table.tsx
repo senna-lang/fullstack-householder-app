@@ -1,4 +1,5 @@
 "use client"
+
 import React, { useState, useEffect, useMemo } from "react"
 import {
 	Table,
@@ -59,48 +60,56 @@ export function DataTable({ data }: DataTableProps) {
 
 	return (
 		<div className="flex flex-col h-full">
-			<div className="flex-grow overflow-hidden border border-[#93c5fd]">
-				<div className="overflow-y-auto h-full">
-					<Table>
-						<TableHeader className="sticky top-0 z-10">
-							<TableRow className="bg-[#60a5fa] hover:bg-[#60a5fa]">
-								<TableHead className="w-[100px] text-white">日付</TableHead>
-								<TableHead className="text-white">カテゴリー</TableHead>
-								<TableHead className="text-right text-white">金額</TableHead>
-							</TableRow>
-						</TableHeader>
-						<TableBody>
-							{data.map((expense) => (
-								<TableRow key={expense.id} className="hover:bg-[#e0e7ff]">
-									<TableCell className="font-medium text-[#2563eb]">
+			<div className="flex-grow overflow-auto border rounded-md border-gray-200 h-full">
+				<Table className="table-fixed w-full h-full">
+					<TableHeader className="sticky top-0 z-10 bg-blue-500">
+						<TableRow>
+							<TableHead className="w-1/4 text-white">日付</TableHead>
+							<TableHead className="w-1/2 text-white">カテゴリー</TableHead>
+							<TableHead className="w-1/4 text-right text-white">
+								金額
+							</TableHead>
+						</TableRow>
+					</TableHeader>
+					<TableBody>
+						{data.length > 0 ? (
+							data.map((expense) => (
+								<TableRow key={expense.id} className="hover:bg-gray-50">
+									<TableCell className="w-1/4 font-medium text-blue-600">
 										{new Date(expense.date).toLocaleDateString()}
 									</TableCell>
-									<TableCell>
+									<TableCell className="w-1/2">
 										{categoryMap[expense.categoryId] || "Unknown"}
 									</TableCell>
 									<TableCell
-										className={`text-right ${getStatusColor(
+										className={`w-1/4 text-right font-mono ${getStatusColor(
 											Number.parseFloat(expense.amount),
 										)}`}
 									>
 										¥{Number.parseFloat(expense.amount).toLocaleString()}
 									</TableCell>
 								</TableRow>
-							))}
-						</TableBody>
-					</Table>
-				</div>
+							))
+						) : (
+							<TableRow>
+								<TableCell colSpan={3} className="text-center p-4">
+									データがありません
+								</TableCell>
+							</TableRow>
+						)}
+					</TableBody>
+				</Table>
 			</div>
 			<div className="flex-none mt-2">
-				<Table>
+				<Table className="table-fixed w-full">
 					<TableFooter>
-						<TableRow className="bg-[#60a5fa] hover:bg-[#60a5fa]">
-							<TableCell colSpan={2} className="text-white font-semibold">
-								合計
-							</TableCell>
-							<TableCell className="text-right text-white font-semibold">
-								¥{totalAmount.toLocaleString()}
-							</TableCell>
+						<TableRow className="bg-blue-500 flex justify-between items-center">
+							<div className="flex w-full justify-between items-center px-4">
+								<span className="text-white font-semibold">合計</span>
+								<span className="text-white font-semibold font-mono">
+									¥{totalAmount.toLocaleString()}
+								</span>
+							</div>
 						</TableRow>
 					</TableFooter>
 				</Table>

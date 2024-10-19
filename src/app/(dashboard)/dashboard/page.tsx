@@ -1,5 +1,3 @@
-import { Chart } from "@/features/dashboard/components/chart"
-import { DataTable } from "@/features/dashboard/components/table"
 import {
 	Card,
 	CardContent,
@@ -8,6 +6,8 @@ import {
 } from "@/components/common/ui/card"
 import { fetchFinanceData } from "@/features/dashboard/api"
 import { CategoryCard } from "@/features/dashboard/components/CategoryCard"
+import { Chart } from "@/features/dashboard/components/Chart"
+import { DataTable } from "@/features/dashboard/components/Table"
 import { calculateCategoryTotals } from "@/features/dashboard/utils"
 import { auth } from "@clerk/nextjs/server"
 
@@ -20,12 +20,16 @@ export default async function Home() {
 
 	// 現在の年月を取得
 	const currentDate = new Date()
-	const currentYearMonth = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, "0")}`
+	const currentYearMonth = `${currentDate.getFullYear()}-${String(
+		currentDate.getMonth() + 1,
+	).padStart(2, "0")}`
 
 	// 現在の月のデータのみをフィルタリング
 	const currentMonthData = financeData.filter((item) => {
 		const itemDate = new Date(item.date)
-		const itemYearMonth = `${itemDate.getFullYear()}-${String(itemDate.getMonth() + 1).padStart(2, "0")}`
+		const itemYearMonth = `${itemDate.getFullYear()}-${String(
+			itemDate.getMonth() + 1,
+		).padStart(2, "0")}`
 		return itemYearMonth === currentYearMonth
 	})
 
