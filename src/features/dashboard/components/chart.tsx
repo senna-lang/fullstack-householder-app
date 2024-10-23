@@ -8,7 +8,7 @@ import {
 	ChartTooltipContent,
 } from "@/components/common/ui/chart"
 
-type MonthlyTotals = {
+export type MonthlyTotals = {
 	[key: string]: number
 }
 
