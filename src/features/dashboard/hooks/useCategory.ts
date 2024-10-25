@@ -14,6 +14,9 @@ export const useCategory = () => {
 	const { data, status } = useQuery({
 		queryKey: ["category"],
 		queryFn: fetcher,
+		staleTime: 5 * 60 * 1000,
+		retry: 3,
+		refetchOnWindowFocus: false,
 	})
 
 	return {
