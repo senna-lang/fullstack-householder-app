@@ -1,7 +1,7 @@
 {
 	"$schema": "https://biomejs.dev/schemas/1.5.2/schema.json",
 	"files": {
-		"ignore": ["public", "node_modules", ".next", "ui"]
+		"ignore": ["public", "node_modules", ".next", "shadcn"]
 	},
 	"organizeImports": {
 		"enabled": true
