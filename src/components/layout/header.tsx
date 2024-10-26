@@ -13,7 +13,7 @@ export default function Header() {
 				</Link>
 				<nav className="hidden md:flex space-x-4">
 					<Button variant="ghost" size="sm" asChild>
-						<Link href="/">
+						<Link href="/dashboard">
 							<Home className="w-4 h-4 mr-2" />
 							Dashboard
 						</Link>

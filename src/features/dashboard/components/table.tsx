@@ -10,7 +10,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/common/shadcn/table"
-import { useCategory } from "../hooks/useCategory"
+import { useCategory } from "../../../hooks/useCategory"
 import { useFinanceData } from "../hooks/useFinanceData"
 import { SkeltonBox } from "../../../components/common/SkeltonBox"
 import { ErrorAlert } from "@/components/common/ErrorAlert"

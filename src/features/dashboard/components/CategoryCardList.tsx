@@ -1,6 +1,6 @@
 "use client"
 
-import { useCategory } from "../hooks/useCategory"
+import { useCategory } from "../../../hooks/useCategory"
 import { useFinanceData } from "../hooks/useFinanceData"
 import { CategoryCardSkeleton } from "./CategoryCardSkelton"
 import { CategoryCard } from "./CategoryCard"
