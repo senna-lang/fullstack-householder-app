@@ -11,7 +11,7 @@ import {
 } from "@/features/dashboard/components/Chart"
 import { useFinanceData } from "../hooks/useFinanceData"
 import { SkeltonBox } from "../../../components/common/SkeltonBox"
-import { ChartError } from "./ChartError"
+import { ErrorAlert } from "../../../components/common/ErrorAlert"
 
 type ChartCardProps = {
 	userId: string
@@ -31,7 +31,7 @@ const ChartCard = ({ userId }: ChartCardProps) => {
 
 	// エラー状態の処理
 	if (financeError || !financeData) {
-		return <ChartError />
+		return <ErrorAlert />
 	}
 
 	return (

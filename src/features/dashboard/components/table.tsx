@@ -13,6 +13,7 @@ import {
 import { useCategory } from "../hooks/useCategory"
 import { useFinanceData } from "../hooks/useFinanceData"
 import { SkeltonBox } from "../../../components/common/SkeltonBox"
+import { ErrorAlert } from "@/components/common/ErrorAlert"
 
 interface DataTableProps {
 	userId: string
@@ -58,11 +59,7 @@ export function DataTable({ userId }: DataTableProps) {
 	}
 
 	if (financeError || !financeData) {
-		return (
-			<div className="w-full flex justify-center p-4 text-red-500">
-				Failed to load data
-			</div>
-		)
+		return <ErrorAlert />
 	}
 
 	const totalAmount = financeData.currentMonthData.expenses.reduce(
