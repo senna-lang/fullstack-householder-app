@@ -3,7 +3,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/components/common/ui/card";
+} from "@/components/common/shadcn/card";
 import { DataTable } from "@/features/dashboard/components/Table";
 import CategoryCardList from "@/features/dashboard/components/CategoryCardList";
 import ChartCard from "@/features/dashboard/components/ChartCard";

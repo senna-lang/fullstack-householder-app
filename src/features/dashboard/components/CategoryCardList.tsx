@@ -2,7 +2,9 @@
 
 import { useCategory } from "../hooks/useCategory";
 import { useFinanceData } from "../hooks/useFinanceData";
+import { CategoryCardSkeleton } from "./CategoryCardSkelton";
 import { CategoryCard } from "./CategoryCard";
+import CategorySkeltonList from "./CategorySkeltonList";
 
 interface CategoryCardListProps {
   userId: string;
@@ -17,9 +19,8 @@ const CategoryCardList = ({ userId }: CategoryCardListProps) => {
 
   const { data: categoryData } = useCategory();
 
-  // 両方のデータの読み込み中状態を処理
   if (isFinanceLoading) {
-    return <div className="w-full flex justify-center p-4">Loading...</div>;
+    return <CategorySkeltonList />;
   }
 
   // エラー状態の処理
