@@ -1,60 +1,46 @@
-"use client"
-
-import { useCategory } from "../../../hooks/useCategory"
-import { useFinanceData } from "../hooks/useFinanceData"
-import { CategoryCardSkeleton } from "./CategoryCardSkelton"
 import { CategoryCard } from "./CategoryCard"
-import CategorySkeltonList from "./CategorySkeltonList"
 
 interface CategoryCardListProps {
-	userId: string
+  financeData: FinanceDataResponse
+  categoryData: CategoryDataResponse
+}
+interface Category {
+  id: number
+  name: string
 }
 
-const CategoryCardList = ({ userId }: CategoryCardListProps) => {
-	const {
-		data: financeData,
-		isLoading: isFinanceLoading,
-		error: financeError,
-	} = useFinanceData(userId)
+interface CategoryTotal {
+  categoryId: number
+  total: string
+}
 
-	const { data: categoryData } = useCategory()
+const CategoryCardList = ({
+  financeData,
+  categoryData,
+}: CategoryCardListProps) => {
+  // カテゴリーごとの合計を取得するヘルパー関数
+  const getCategoryTotal = (categoryId: number): number => {
+    const categoryTotal = financeData.currentMonthData.categoryTotals.find(
+      (ct: CategoryTotal) => ct.categoryId === categoryId,
+    )
+    return categoryTotal ? Number(categoryTotal.total) : 0
+  }
 
-	if (isFinanceLoading) {
-		return <CategorySkeltonList />
-	}
-
-	// エラー状態の処理
-	if (financeError || !financeData || !categoryData) {
-		return (
-			<div className="w-full flex justify-center p-4 text-red-500">
-				Failed to load data
-			</div>
-		)
-	}
-
-	// カテゴリーごとの合計を取得するヘルパー関数
-	const getCategoryTotal = (categoryId: number): number => {
-		const categoryTotal = financeData.currentMonthData.categoryTotals.find(
-			(ct) => ct.categoryId === categoryId,
-		)
-		return categoryTotal ? Number(categoryTotal.total) : 0
-	}
-
-	return (
-		<div className="flex gap-2 w-full">
-			<CategoryCard
-				category="total"
-				totalAmount={financeData.currentMonthData.total}
-			/>
-			{categoryData.map((category) => (
-				<CategoryCard
-					key={category.id}
-					category={category.name}
-					totalAmount={getCategoryTotal(category.id)}
-				/>
-			))}
-		</div>
-	)
+  return (
+    <div className="flex gap-2 w-full">
+      <CategoryCard
+        category="total"
+        totalAmount={financeData.currentMonthData.total}
+      />
+      {categoryData.map((category: Category) => (
+        <CategoryCard
+          key={category.id}
+          category={category.name}
+          totalAmount={getCategoryTotal(category.id)}
+        />
+      ))}
+    </div>
+  )
 }
 
 export default CategoryCardList

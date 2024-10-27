@@ -1,155 +1,155 @@
 {
-	"id": "5253febf-553f-4b37-9376-92d4610803a3",
-	"prevId": "00000000-0000-0000-0000-000000000000",
-	"version": "7",
-	"dialect": "postgresql",
-	"tables": {
-		"public.expense_categories": {
-			"name": "expense_categories",
-			"schema": "",
-			"columns": {
-				"id": {
-					"name": "id",
-					"type": "serial",
-					"primaryKey": true,
-					"notNull": true
-				},
-				"name": {
-					"name": "name",
-					"type": "varchar(50)",
-					"primaryKey": false,
-					"notNull": true
-				}
-			},
-			"indexes": {},
-			"foreignKeys": {},
-			"compositePrimaryKeys": {},
-			"uniqueConstraints": {}
-		},
-		"public.user_finances": {
-			"name": "user_finances",
-			"schema": "",
-			"columns": {
-				"id": {
-					"name": "id",
-					"type": "serial",
-					"primaryKey": true,
-					"notNull": true
-				},
-				"user_id": {
-					"name": "user_id",
-					"type": "varchar",
-					"primaryKey": false,
-					"notNull": true
-				},
-				"category_id": {
-					"name": "category_id",
-					"type": "integer",
-					"primaryKey": false,
-					"notNull": true
-				},
-				"amount": {
-					"name": "amount",
-					"type": "numeric(10, 2)",
-					"primaryKey": false,
-					"notNull": true
-				},
-				"date": {
-					"name": "date",
-					"type": "date",
-					"primaryKey": false,
-					"notNull": true
-				}
-			},
-			"indexes": {},
-			"foreignKeys": {
-				"user_finances_user_id_users_user_id_fk": {
-					"name": "user_finances_user_id_users_user_id_fk",
-					"tableFrom": "user_finances",
-					"tableTo": "users",
-					"columnsFrom": ["user_id"],
-					"columnsTo": ["user_id"],
-					"onDelete": "no action",
-					"onUpdate": "no action"
-				},
-				"user_finances_category_id_expense_categories_id_fk": {
-					"name": "user_finances_category_id_expense_categories_id_fk",
-					"tableFrom": "user_finances",
-					"tableTo": "expense_categories",
-					"columnsFrom": ["category_id"],
-					"columnsTo": ["id"],
-					"onDelete": "no action",
-					"onUpdate": "no action"
-				}
-			},
-			"compositePrimaryKeys": {},
-			"uniqueConstraints": {}
-		},
-		"public.users": {
-			"name": "users",
-			"schema": "",
-			"columns": {
-				"id": {
-					"name": "id",
-					"type": "serial",
-					"primaryKey": true,
-					"notNull": true
-				},
-				"user_id": {
-					"name": "user_id",
-					"type": "varchar(255)",
-					"primaryKey": false,
-					"notNull": true
-				},
-				"username": {
-					"name": "username",
-					"type": "varchar(50)",
-					"primaryKey": false,
-					"notNull": true
-				},
-				"email": {
-					"name": "email",
-					"type": "varchar(100)",
-					"primaryKey": false,
-					"notNull": true
-				},
-				"password_hash": {
-					"name": "password_hash",
-					"type": "varchar(255)",
-					"primaryKey": false,
-					"notNull": true
-				},
-				"created_at": {
-					"name": "created_at",
-					"type": "timestamp",
-					"primaryKey": false,
-					"notNull": true,
-					"default": "now()"
-				}
-			},
-			"indexes": {},
-			"foreignKeys": {},
-			"compositePrimaryKeys": {},
-			"uniqueConstraints": {
-				"users_user_id_unique": {
-					"name": "users_user_id_unique",
-					"nullsNotDistinct": false,
-					"columns": ["user_id"]
-				},
-				"users_email_unique": {
-					"name": "users_email_unique",
-					"nullsNotDistinct": false,
-					"columns": ["email"]
-				}
-			}
-		}
-	},
-	"enums": {},
-	"schemas": {},
-	"sequences": {},
-	"_meta": {
-		"columns": {},
-		"schemas": {},
-		"tables": {}
-	}
+  "id": "5253febf-553f-4b37-9376-92d4610803a3",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.expense_categories": {
+      "name": "expense_categories",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.user_finances": {
+      "name": "user_finances",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category_id": {
+          "name": "category_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "amount": {
+          "name": "amount",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date": {
+          "name": "date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_finances_user_id_users_user_id_fk": {
+          "name": "user_finances_user_id_users_user_id_fk",
+          "tableFrom": "user_finances",
+          "tableTo": "users",
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["user_id"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "user_finances_category_id_expense_categories_id_fk": {
+          "name": "user_finances_category_id_expense_categories_id_fk",
+          "tableFrom": "user_finances",
+          "tableTo": "expense_categories",
+          "columnsFrom": ["category_id"],
+          "columnsTo": ["id"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "username": {
+          "name": "username",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password_hash": {
+          "name": "password_hash",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "users_user_id_unique": {
+          "name": "users_user_id_unique",
+          "nullsNotDistinct": false,
+          "columns": ["user_id"]
+        },
+        "users_email_unique": {
+          "name": "users_email_unique",
+          "nullsNotDistinct": false,
+          "columns": ["email"]
+        }
+      }
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
 }

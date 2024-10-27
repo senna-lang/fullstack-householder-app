@@ -1,37 +1,40 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.5.2/schema.json",
-	"files": {
-		"ignore": ["public", "node_modules", ".next", "shadcn"]
-	},
-	"organizeImports": {
-		"enabled": true
-	},
-	"javascript": {
-		"formatter": {
-			"quoteStyle": "double",
-			"semicolons": "asNeeded"
-		}
-	},
-	"linter": {
-		"enabled": true
-	},
-	"overrides": [
-		{
-			"include": [
-				"next.config.js",
-				"layout.tsx",
-				"page.tsx",
-				"loading.tsx",
-				"error.tsx",
-				"not-found.tsx"
-			],
-			"linter": {
-				"rules": {
-					"style": {
-						"noDefaultExport": "off"
-					}
-				}
-			}
-		}
-	]
+  "$schema": "https://biomejs.dev/schemas/1.6.4/schema.json",
+  "files": {
+    "ignore": ["public", "node_modules", ".next", "shadcn"]
+  },
+  "organizeImports": {
+    "enabled": true
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "ignore": [],
+    "indentStyle": "space",
+    "indentWidth": 2
+  },
+  "javascript": {
+    "formatter": {
+      "arrowParentheses": "always",
+      "bracketSameLine": false,
+      "bracketSpacing": true,
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "semicolons": "asNeeded"
+    }
+  },
+  "json": {
+    "formatter": {
+      "trailingCommas": "none"
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "correctness": {
+        "noUnusedImports": "error"
+      }
+    }
+  }
 }
