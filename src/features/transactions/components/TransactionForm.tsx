@@ -56,15 +56,15 @@ export function TransactionForm({ userId, year, month }: TransactionFormProps) {
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className="mb-8 bg-white shadow overflow-hidden sm:rounded-lg p-4"
+			className="mb-8 bg-white shadow sm:rounded-lg p-4"
 		>
-			<div className="grid grid-cols-1 gap-4 sm:grid-cols-4">
+			<div className="flex items-center gap-4">
 				<Input
 					type="date"
 					name="date"
 					value={newTransaction.date}
 					onChange={handleInputChange}
-					className="sm:col-span-1"
+					className="flex-1"
 					required
 					disabled={isLoading}
 				/>
@@ -74,7 +74,7 @@ export function TransactionForm({ userId, year, month }: TransactionFormProps) {
 					required
 					disabled={isLoading}
 				>
-					<SelectTrigger className="sm:col-span-1">
+					<SelectTrigger className="flex-1">
 						<SelectValue placeholder="Category" />
 					</SelectTrigger>
 					<SelectContent>
@@ -89,31 +89,14 @@ export function TransactionForm({ userId, year, month }: TransactionFormProps) {
 					value={newTransaction.amount}
 					onChange={handleInputChange}
 					placeholder="Amount (JPY)"
-					className="sm:col-span-1"
+					className="flex-1"
 					required
 					disabled={isLoading}
 				/>
-				<Button type="submit" className="sm:col-span-1" disabled={isLoading}>
+				<Button type="submit" className="flex-1" disabled={isLoading}>
 					{isLoading ? "Adding..." : "Add Transaction"}
 				</Button>
 			</div>
 		</form>
 	)
 }
-
-// 親コンポーネントでの使用例
-/*
-const TransactionsPage = () => {
-  const today = new Date();
-  const currentYear = today.getFullYear().toString();
-  const currentMonth = (today.getMonth() + 1).toString().padStart(2, "0");
-
-  return (
-    <TransactionForm
-      userId="user123"
-      year={currentYear}
-      month={currentMonth}
-    />
-  );
-};
-*/

@@ -49,12 +49,12 @@ export function TransactionList({ userId, year, month }: TransactionListProps) {
 
 	return (
 		<div className="bg-white shadow overflow-hidden sm:rounded-lg">
-			<Table>
+			<Table className="w-full table-fixed">
 				<TableHeader>
 					<TableRow>
-						<TableHead>Date</TableHead>
-						<TableHead>Category</TableHead>
-						<TableHead className="text-right">Amount (JPY)</TableHead>
+						<TableHead className="w-1/3">Date</TableHead>
+						<TableHead className="w-1/3">Category</TableHead>
+						<TableHead className="w-1/3 text-right">Amount (JPY)</TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
