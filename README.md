@@ -27,34 +27,6 @@ householder-app is a household finance management application built with modern 
 
 (Screenshot of the application will be added here)
 
-## Setup
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/householder-app.git
-cd householder-app
-
-# Ensure Bun is installed
-# If not, install it using:
-# curl -fsSL https://bun.sh/install | bash
-
-# Install dependencies
-bun install
-
-# Start the development server
-bun run dev
-```
-
-## Scripts
-
-- `bun run dev`: Start the development server
-- `bun run build`: Build for production
-- `bun run start`: Start in production mode
-- `bun run lint`: Run linting using Biome
-- `bun run format`: Run formatting using Biome
-- `bun run check`: Run checks using Biome
-- `bun run studio`: Launch Drizzle Studio
-
 ## Runtime and Tools
 
 This project uses [Bun](https://bun.sh/) as its JavaScript runtime. Bun provides a fast and efficient execution environment, accelerating the development process.
