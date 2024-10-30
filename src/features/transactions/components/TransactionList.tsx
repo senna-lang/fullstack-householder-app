@@ -1,6 +1,3 @@
-"use client"
-
-import { Skeleton } from "@/components/common/shadcn/skeleton"
 import {
   Table,
   TableBody,
@@ -9,43 +6,51 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/common/shadcn/table"
-import { useMonthlyFinanceData } from "@/features/transactions/hooks/useMonthlyFinanceData"
-import { useCategory } from "@/hooks/useCategory"
 import { useMemo } from "react"
 
-interface TransactionListProps {
-  userId: string
-  year: string
-  month: string
+interface Expense {
+  id: string
+  date: string
+  categoryId: number
+  amount: number
 }
 
-export function TransactionList({ userId, year, month }: TransactionListProps) {
-  const { data: financeData, isLoading } = useMonthlyFinanceData(
-    userId,
-    year,
-    month,
-  )
-  const { data: categories } = useCategory()
+interface MonthData {
+  expenses: Expense[]
+}
 
-  // カテゴリーIDからnameへの変換マップを作成
-  const categoryMap = useMemo(() => {
+interface MonthlyFinanceDataResponse {
+  monthData: MonthData
+}
+
+interface Category {
+  id: number
+  name: string
+}
+
+type CategoryDataResponse = Category[]
+
+interface CategoryMap {
+  [key: number]: string
+}
+
+interface TransactionListProps {
+  monthlyFinance: MonthlyFinanceDataResponse
+  categories: CategoryDataResponse
+}
+
+export function TransactionList({
+  monthlyFinance,
+  categories,
+}: TransactionListProps) {
+  // カテゴリーマップをメモ化
+  const categoryMap: CategoryMap = useMemo(() => {
     if (!categories) return {}
-    return categories.reduce(
-      (acc, category) => {
-        acc[category.id] = category.name
-        return acc
-      },
-      {} as { [key: number]: string },
-    )
+    return categories.reduce<CategoryMap>((acc, category) => {
+      acc[category.id] = category.name
+      return acc
+    }, {})
   }, [categories])
-
-  if (isLoading) {
-    return (
-      <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-        <Skeleton className="h-64 w-full" />
-      </div>
-    )
-  }
 
   return (
     <div className="bg-white shadow overflow-hidden sm:rounded-lg">
@@ -58,7 +63,7 @@ export function TransactionList({ userId, year, month }: TransactionListProps) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {financeData?.monthData.expenses.map((expense) => (
+          {monthlyFinance?.monthData.expenses.map((expense) => (
             <TableRow key={expense.id}>
               <TableCell>
                 {new Date(expense.date).toLocaleDateString()}
@@ -71,7 +76,7 @@ export function TransactionList({ userId, year, month }: TransactionListProps) {
               </TableCell>
             </TableRow>
           ))}
-          {!financeData?.monthData.expenses.length && (
+          {!monthlyFinance?.monthData.expenses.length && (
             <TableRow>
               <TableCell colSpan={3} className="text-center py-4">
                 データがありません

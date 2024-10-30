@@ -8,3 +8,7 @@ type FinanceDataResponse = InferResponseType<
 type CategoryDataResponse = InferResponseType<
   Client["api"]["expense-category"]["$get"]
 >
+
+type MonthlyFinanceDataResponse = InferResponseType<
+  Client["api"]["monthly-finance-data"]["$get"]
+>

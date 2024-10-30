@@ -1,19 +1,20 @@
+"use client"
 import { useNotifications } from "@/components/common/notifications"
 import { client } from "@/lib/hono"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 
-interface CreateFinanceData {
+export interface CreateFinanceData {
   date: string
   categoryId: number
   amount: number
 }
 
-interface CreateFinanceParams {
+export interface CreateFinanceParams {
   userId: string
   data: CreateFinanceData
 }
 
-interface CreateFinanceResponse {
+export interface CreateFinanceResponse {
   id: number
   userId: string
   date: string

@@ -10,7 +10,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { useCreateFinance } from "../hooks/useCreateFinanse"
+import type {
+  CreateFinanceData,
+  CreateFinanceResponse,
+} from "../hooks/useCreateFinanse"
+import type { UseMutateFunction } from "@tanstack/react-query"
 
 interface NewTransaction {
   date: string
@@ -19,14 +23,16 @@ interface NewTransaction {
 }
 
 interface TransactionFormProps {
-  userId: string
-  year: string
-  month: string
+  isLoading: boolean
+  mutate: UseMutateFunction<
+    CreateFinanceResponse,
+    Error,
+    CreateFinanceData,
+    unknown
+  >
 }
 
-export function TransactionForm({ userId, year, month }: TransactionFormProps) {
-  const { mutate, isLoading } = useCreateFinance(userId, year, month)
-
+export function TransactionForm({ isLoading, mutate }: TransactionFormProps) {
   const [newTransaction, setNewTransaction] = useState<NewTransaction>({
     date: "",
     categoryId: "",
