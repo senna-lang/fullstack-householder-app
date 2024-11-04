@@ -11,7 +11,7 @@ import {
 // ユーザーテーブル
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
-  userID: varchar("user_id", { length: 255 }).notNull().unique(), // Clerk から提供される一意の識別子
+  userID: varchar("user_id", { length: 255 }).notNull().unique(),
   username: varchar("username", { length: 50 }).notNull(),
   email: varchar("email", { length: 100 }).notNull().unique(),
   passwordHash: varchar("password_hash", { length: 255 }).notNull(),
@@ -33,6 +33,7 @@ export const userFinances = pgTable("user_finances", {
   categoryId: integer("category_id")
     .notNull()
     .references(() => expenseCategories.id),
+  name: varchar("name", { length: 100 }).notNull(), // 新しく追加したnameカラム
   amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),
   date: date("date").notNull(),
 })

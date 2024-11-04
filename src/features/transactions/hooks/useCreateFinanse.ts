@@ -4,6 +4,7 @@ import { client } from "@/lib/hono"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 export interface CreateFinanceData {
+  name: string
   date: string
   categoryId: number
   amount: number
@@ -16,6 +17,7 @@ export interface CreateFinanceParams {
 
 export interface CreateFinanceResponse {
   id: number
+  name: string
   userId: string
   date: string
   categoryId: number
