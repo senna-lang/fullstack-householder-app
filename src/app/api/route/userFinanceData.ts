@@ -5,11 +5,9 @@ import {
   userFinanceDataByMonth,
   createUserFinanceData,
 } from "../applications/userFinanceData"
-import { errorHandler } from "../middlewere"
 import { createFinanceSchema } from "../schema"
 
 const app = new Hono()
-  // .use("*", errorHandler)
   .get("/:id", async (c) => {
     const id = c.req.param("id")
     const response = await userFinanceData(id)

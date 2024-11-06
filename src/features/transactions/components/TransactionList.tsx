@@ -10,6 +10,7 @@ import { useMemo } from "react"
 
 interface Expense {
   id: string
+  name: string
   date: string
   categoryId: number
   amount: number
@@ -57,9 +58,10 @@ export function TransactionList({
       <Table className="w-full table-fixed">
         <TableHeader>
           <TableRow>
-            <TableHead className="w-1/3">Date</TableHead>
-            <TableHead className="w-1/3">Category</TableHead>
-            <TableHead className="w-1/3 text-right">Amount (JPY)</TableHead>
+            <TableHead className="w-1/4">Date</TableHead>
+            <TableHead className="w-1/4">Name</TableHead>
+            <TableHead className="w-1/4">Category</TableHead>
+            <TableHead className="w-1/4 text-right">Amount (JPY)</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -68,6 +70,7 @@ export function TransactionList({
               <TableCell>
                 {new Date(expense.date).toLocaleDateString()}
               </TableCell>
+              <TableCell className="truncate">{expense.name}</TableCell>
               <TableCell className="capitalize">
                 {categoryMap[expense.categoryId] || "Unknown"}
               </TableCell>
@@ -78,7 +81,7 @@ export function TransactionList({
           ))}
           {!monthlyFinance?.monthData.expenses.length && (
             <TableRow>
-              <TableCell colSpan={3} className="text-center py-4">
+              <TableCell colSpan={4} className="text-center py-4">
                 データがありません
               </TableCell>
             </TableRow>

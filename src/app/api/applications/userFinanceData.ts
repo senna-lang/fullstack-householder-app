@@ -1,5 +1,5 @@
 import { db } from "@/db/drizzle"
-import { expenseCategories, userFinances, users } from "@/db/schema"
+import { expenseCategories, userFinances } from "@/db/schema"
 import { eq, sql } from "drizzle-orm"
 import { formatDate, validateUser } from "../utils"
 
@@ -8,6 +8,7 @@ type InsertUserFinance = typeof userFinances.$inferInsert
 
 interface CreateFinanceData {
   userId: string
+  name: string
   date: string
   categoryId: number
   amount: number
@@ -62,6 +63,7 @@ export const userFinanceData = async (user_id: string) => {
     const currentMonthExpenses = await db
       .select({
         id: userFinances.id,
+        name: userFinances.name,
         categoryId: userFinances.categoryId,
         amount: userFinances.amount,
         date: userFinances.date,
@@ -148,6 +150,7 @@ export const userFinanceDataByMonth = async (
     const monthExpenses = await db
       .select({
         id: userFinances.id,
+        name: userFinances.name,
         categoryId: userFinances.categoryId,
         amount: userFinances.amount,
         date: userFinances.date,
@@ -175,7 +178,7 @@ export const userFinanceDataByMonth = async (
 }
 
 export const createUserFinanceData = async (data: CreateFinanceData) => {
-  const { userId, date, categoryId, amount } = data
+  const { userId, name, date, categoryId, amount } = data
 
   // ユーザー存在確認
   await validateUser(userId)
@@ -194,6 +197,7 @@ export const createUserFinanceData = async (data: CreateFinanceData) => {
   try {
     const insertData: InsertUserFinance = {
       userId,
+      name,
       date: formatDate(date),
       categoryId,
       amount: amount.toString(),

@@ -14,6 +14,7 @@ import {
 interface Expense {
   id: number
   date: string
+  name: string
   amount: string
   categoryId: number
 }
@@ -40,6 +41,7 @@ type CategoryMap = {
 
 export function DataTable({ financeData, categoryData }: DataTableProps) {
   const [mounted, setMounted] = useState(false)
+  console.log(financeData.currentMonthData.expenses)
 
   useEffect(() => {
     setMounted(true)
@@ -79,6 +81,7 @@ export function DataTable({ financeData, categoryData }: DataTableProps) {
           <TableHeader className="sticky top-0 z-10 bg-blue-500">
             <TableRow>
               <TableHead className="text-white">日付</TableHead>
+              <TableHead className="text-white">名前</TableHead>
               <TableHead className="text-white">カテゴリー</TableHead>
               <TableHead className="text-white">金額</TableHead>
             </TableRow>
@@ -90,6 +93,7 @@ export function DataTable({ financeData, categoryData }: DataTableProps) {
                   <TableCell className="font-medium text-blue-600">
                     {new Date(expense.date).toLocaleDateString()}
                   </TableCell>
+                  <TableCell className="font-medium">{expense.name}</TableCell>
                   <TableCell>
                     {categoryMap[expense.categoryId] || "Unknown"}
                   </TableCell>
@@ -108,7 +112,7 @@ export function DataTable({ financeData, categoryData }: DataTableProps) {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={3} className="text-center p-4">
+                <TableCell colSpan={4} className="text-center p-4">
                   データがありません
                 </TableCell>
               </TableRow>
@@ -120,7 +124,7 @@ export function DataTable({ financeData, categoryData }: DataTableProps) {
         <Table>
           <TableFooter>
             <TableRow className="bg-blue-500">
-              <TableCell colSpan={3} className="p-0">
+              <TableCell colSpan={4} className="p-0">
                 <div className="flex items-center space-x-4">
                   <span className="text-white font-semibold ml-3">合計</span>
                   <span className="text-white font-semibold font-mono">
