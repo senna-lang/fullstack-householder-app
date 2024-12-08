@@ -1,6 +1,5 @@
 "use client"
 
-import { useState, type ChangeEvent } from "react"
 import { Button } from "@/components/common/shadcn/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -15,13 +14,7 @@ import type {
   CreateFinanceResponse,
 } from "../hooks/useCreateFinanse"
 import type { UseMutateFunction } from "@tanstack/react-query"
-
-interface NewTransaction {
-  name: string
-  date: string
-  categoryId: string
-  amount: string
-}
+import { useTransactionForm } from "../hooks/useTransactionForm"
 
 interface TransactionFormProps {
   isLoading: boolean
@@ -34,34 +27,12 @@ interface TransactionFormProps {
 }
 
 export function TransactionForm({ isLoading, mutate }: TransactionFormProps) {
-  const [newTransaction, setNewTransaction] = useState<NewTransaction>({
-    name: "",
-    date: "",
-    categoryId: "",
-    amount: "",
-  })
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewTransaction({ ...newTransaction, [e.target.name]: e.target.value })
-  }
-
-  const handleCategoryChange = (value: string) => {
-    setNewTransaction({ ...newTransaction, categoryId: value })
-  }
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    mutate({
-      name: newTransaction.name,
-      date: newTransaction.date,
-      categoryId: Number(newTransaction.categoryId),
-      amount: Number(newTransaction.amount),
-    })
-
-    setNewTransaction({ name: "", date: "", categoryId: "", amount: "" })
-  }
-
+  const {
+    newTransaction,
+    handleInputChange,
+    handleCategoryChange,
+    handleSubmit,
+  } = useTransactionForm(mutate)
   return (
     <form
       onSubmit={handleSubmit}

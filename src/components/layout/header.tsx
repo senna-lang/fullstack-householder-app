@@ -1,4 +1,4 @@
-import { Bell, CreditCard, Home, PieChart, User } from "lucide-react"
+import { Bell, CreditCard, Home, PieChart } from "lucide-react"
 import Link from "next/link"
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 

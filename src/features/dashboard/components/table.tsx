@@ -1,6 +1,5 @@
 "use client"
 
-import { useState, useEffect, useMemo } from "react"
 import {
   Table,
   TableBody,
@@ -10,23 +9,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/common/shadcn/table"
-
-interface Expense {
-  id: number
-  date: string
-  name: string
-  amount: string
-  categoryId: number
-}
-
-interface CurrentMonthData {
-  expenses: Expense[]
-}
-
-interface Category {
-  id: number
-  name: string
-}
+import type { Category, CurrentMonthData, Expense } from "../types"
+import { useDataTable } from "../hooks/useFinanceData"
 
 interface DataTableProps {
   financeData: {
@@ -35,45 +19,11 @@ interface DataTableProps {
   categoryData: Category[]
 }
 
-type CategoryMap = {
-  [key: number]: string
-}
-
 export function DataTable({ financeData, categoryData }: DataTableProps) {
-  const [mounted, setMounted] = useState(false)
-  console.log(financeData.currentMonthData.expenses)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  const categoryMap = useMemo(() => {
-    return (
-      categoryData?.reduce<CategoryMap>(
-        (acc: CategoryMap, category: Category) => {
-          acc[category.id] = category.name
-          return acc
-        },
-        {},
-      ) || {}
-    )
-  }, [categoryData])
-
-  const getStatusColor = (amount: number) => {
-    if (amount > 100000) return "text-red-600"
-    if (amount > 50000) return "text-yellow-600"
-    return "text-green-600"
-  }
-
-  if (!mounted) {
-    return null
-  }
-
-  const totalAmount = financeData.currentMonthData.expenses.reduce(
-    (sum: number, expense: Expense) => sum + Number.parseFloat(expense.amount),
-    0,
+  const { categoryMap, getStatusColor, totalAmount } = useDataTable(
+    categoryData,
+    financeData,
   )
-
   return (
     <div className="flex flex-col h-full">
       <div className="flex-grow overflow-auto border rounded-md border-gray-200 h-full">
